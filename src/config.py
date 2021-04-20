@@ -16,8 +16,8 @@ NUM_EPOCHS = 1
 LOAD_MODEL = False
 SAVE_MODEL = True
 
-TRAIN_PATH = "/content/drive/My Drive/pix2pix/data/data/maps/train"
-VAL_PATH = "/content/drive/My Drive/pix2pix/data/data/maps/val"
+TRAIN_PATH = "/content/drive/My Drive/pix2pix/data/data/maps/maps/train"
+VAL_PATH = "/content/drive/My Drive/pix2pix/data/data/maps/maps/val"
 
 CHECKPOINT_DISC = "/content/drive/My Drive/pix2pix/pix2pix_pytorch/saved_model/disc.pt"
 CHECKPOINT_GEN = "/content/drive/My Drive/pix2pix/pix2pix_pytorch/saved_model/gen.pt"
