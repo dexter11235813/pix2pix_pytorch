@@ -13,7 +13,7 @@ import utils
 tqdm = partial(tqdm, leave=True, position=0)
 
 
-def train_fn(disc, gen, loader, opt_disc, opt_gen, l1, loss_fn, g_scaler, d_scaler):
+def train_fn(disc, gen, loader, opt_disc, opt_gen, l1, loss_fn):
     for _, data in enumerate(tqdm(loader, total=len(loader))):
         data, target = (
             data["input_image"].to(config.DEVICE),
@@ -29,9 +29,8 @@ def train_fn(disc, gen, loader, opt_disc, opt_gen, l1, loss_fn, g_scaler, d_scal
             D_fake_loss = loss_fn(D_fake, torch.ones_like(D_fake))
             D_loss = (D_real_loss + D_fake_loss) / 2.0
 
-        d_scaler.scale(D_loss).backward()
-        d_scaler.step(opt_disc)
-        d_scaler.update()
+        D_loss.backward()
+        opt_disc.step()
 
         opt_gen.zero_grad()
         with torch.cuda.amp.autocast():
@@ -40,9 +39,8 @@ def train_fn(disc, gen, loader, opt_disc, opt_gen, l1, loss_fn, g_scaler, d_scal
             l1_loss = l1(target_fake, target) * config.L1_LAMBDA
             G_loss = G_fake_loss + l1_loss
 
-        g_scaler.scale(G_loss).backward()
-        g_scaler.step(opt_gen)
-        g_scaler.update()
+        G_loss.backward()
+        opt_gen.step()
 
 
 def main():
@@ -65,20 +63,10 @@ def main():
         num_workers=config.NUM_WORKERS,
     )
     val_loader = DataLoader(val_dataset, batch_size=1, shuffle=False)
-    g_scaler = torch.cuda.amp.GradScaler()
-    d_scaler = torch.cuda.amp.GradScaler()
 
     for epoch in range(config.NUM_EPOCHS):
         train_fn(
-            disc,
-            gen,
-            train_loader,
-            opt_gen,
-            opt_disc,
-            L1_loss,
-            loss_fn,
-            g_scaler,
-            d_scaler,
+            disc, gen, train_loader, opt_gen, opt_disc, L1_loss, loss_fn,
         )
 
         if config.SAVE_MODEL and epoch % 5 == 0:
