@@ -73,7 +73,9 @@ def main():
             utils.save_checkpoint(gen, opt_gen, filename=config.CHECKPOINT_GEN)
             utils.save_checkpoint(disc, opt_disc, filename=config.CHECKPOINT_DISC)
 
-        utils.save_some_examples(gen, val_loader, filename="evaluation")
+        utils.save_some_examples(
+            gen, val_loader, epoch, filename=config.IMAGE_SAVE_FOLDER
+        )
 
 
 if __name__ == "__main__":
