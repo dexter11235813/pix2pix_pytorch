@@ -19,8 +19,8 @@ SAVE_MODEL = True
 TRAIN_PATH = "/content/drive/My Drive/pix2pix/data/data/maps/maps/train"
 VAL_PATH = "/content/drive/My Drive/pix2pix/data/data/maps/maps/val"
 
-CHECKPOINT_DISC = "/content/drive/My Drive/pix2pix/pix2pix_pytorch/saved_model/disc.pt"
-CHECKPOINT_GEN = "/content/drive/My Drive/pix2pix/pix2pix_pytorch/saved_model/gen.pt"
+CHECKPOINT_DISC = "/content/drive/My Drive/pix2pix/pix2pix_pytorch/saved_models/disc.pt"
+CHECKPOINT_GEN = "/content/drive/My Drive/pix2pix/pix2pix_pytorch/saved_models/gen.pt"
 
 both_transform = A.Compose(
     [A.Resize(width=256, height=256), A.HorizontalFlip(p=0.5)],
