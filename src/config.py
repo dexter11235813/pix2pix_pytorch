@@ -6,13 +6,13 @@ from albumentations.pytorch import ToTensorV2
 
 DEVICE = "cuda"
 LEARNING_RATE = 2e-4
-BATCH_SIZE = 8
+BATCH_SIZE = 16
 NUM_WORKERS = 1
 IMAGE_SIZE = 256
 CHANNELS_IMG = 3
 L1_LAMBDA = 100
 LAMBDA_GP = 10
-NUM_EPOCHS = 1
+NUM_EPOCHS = 200
 LOAD_MODEL = False
 SAVE_MODEL = True
 
