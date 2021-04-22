@@ -4,8 +4,11 @@ from torchvision.utils import save_image
 
 
 def save_some_examples(gen, val_loader, epoch, folder):
-    x, y = next(iter(val_loader))
-    x, y = x.to(config.DEVICE), y.to(config.DEVICE)
+    data = next(iter(val_loader))
+    x, y = (
+        data["input_image"].to(config.DEVICE),
+        data["target_image"].to(config.DEVICE),
+    )
     gen.eval()
     with torch.no_grad():
         y_fake = gen(x)
