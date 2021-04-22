@@ -65,6 +65,7 @@ def main():
     val_loader = DataLoader(val_dataset, batch_size=1, shuffle=False)
 
     for epoch in range(config.NUM_EPOCHS):
+        print(f"{epoch + 1}/{config.NUM_EPOCHS} : \n")
         train_fn(
             disc, gen, train_loader, opt_gen, opt_disc, L1_loss, loss_fn,
         )
