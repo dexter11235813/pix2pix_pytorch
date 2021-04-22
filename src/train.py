@@ -74,7 +74,7 @@ def main():
             utils.save_checkpoint(disc, opt_disc, filename=config.CHECKPOINT_DISC)
 
         utils.save_some_examples(
-            gen, val_loader, epoch, filename=config.IMAGE_SAVE_FOLDER
+            gen, val_loader, epoch, folder=config.IMAGE_SAVE_FOLDER
         )
 
 
